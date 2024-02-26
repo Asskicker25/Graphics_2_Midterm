@@ -1,12 +1,13 @@
 #include "Scene_One.h"
 #include "../AppSettings.h"
 #include "../Interior/Interior.h"
+#include "../Asteroid/Asteroid.h"
 
 void Scene_One::Start()
 {
 	GameCamera* mainCamera = new GameCamera();
 	mainCamera->name = "MainCamera";
-	mainCamera->InitializeCamera(PERSPECTIVE, GAME_RESOLUTION_WIDTH, GAME_RESOLUTION_HEIGHT, 0.1f, 100.0f, 45.0f);
+	mainCamera->InitializeCamera(PERSPECTIVE, GAME_RESOLUTION_WIDTH, GAME_RESOLUTION_HEIGHT, 0.1f, 500.0f, 45.0f);
 	mainCamera->transform.SetPosition(glm::vec3(1.24f, 2.8f, 8.30f));
 	mainCamera->transform.SetRotation(glm::vec3(-9.5f, 30.0f, 0.0f));
 	/*mainCamera->applyPostProcessing = true;
@@ -17,9 +18,11 @@ void Scene_One::Start()
 	dirLight->transform.SetScale(glm::vec3(0.1f));
 	dirLight->transform.SetPosition(glm::vec3(0, 0, 3));
 	dirLight->InitializeLight(Directional);
+	dirLight->intensity = 0.8;
 
 
 	Interior* interior = new Interior();
+	Asteroid* asteroid = new Asteroid();
 }
 
 void Scene_One::Update()

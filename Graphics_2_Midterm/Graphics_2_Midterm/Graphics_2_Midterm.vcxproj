@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Asteroid\Asteroid.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImCurveEdit.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImGradient.cpp" />
     <ClCompile Include="Dependencies\include\imgui\imgui.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Asteroid\Asteroid.h" />
     <ClInclude Include="Dependencies\include\glad\glad.h" />
     <ClInclude Include="Dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="Dependencies\include\GLFW\glfw3native.h" />

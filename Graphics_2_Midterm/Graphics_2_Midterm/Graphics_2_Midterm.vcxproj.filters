@@ -63,6 +63,9 @@
     <ClCompile Include="src\NewShaders\NewShaders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Asteroid\Asteroid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GraphicsApplication.h">
@@ -129,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\NewShaders\NewShaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Asteroid\Asteroid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
