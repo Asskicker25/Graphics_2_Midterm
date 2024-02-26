@@ -10,9 +10,22 @@ public:
 	// Inherited via BaseScreen
 	void SetScreenOn() override;
 	virtual void SetScreenOff();
+	virtual void Update(float deltaTime) override;
+
 
 private:
+	bool isCameraOn = false;
 
-	Texture* scifi_01 = nullptr;
+	float mCurrentTimeStep = 0;
+	float mSwitchInterval = 0;
+
+	glm::vec2 mSwitchIntervalRange = glm::vec2(2, 5);
+
+	Texture* staticTexture = nullptr;
+	std::vector<Texture*> scifiTextures;
+
+
+	Texture* GetRandomTexture();
+	void SwitchTexture();
 };
 

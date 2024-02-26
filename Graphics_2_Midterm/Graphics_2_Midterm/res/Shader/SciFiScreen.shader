@@ -48,14 +48,39 @@ in vec4 VertexColor;
 uniform sampler2D texture_diffuse;
 
 uniform float flickerValue;
+uniform float iTime;
+uniform bool staticApply;
+
+float noise(vec2 pos, float evolve) {
+    
+    float e = fract((evolve*0.01));
+    
+    // Coordinates
+    float cx  = pos.x*e;
+    float cy  = pos.y*e;
+    
+    return fract(23.0*fract(2.0/fract(fract(cx*2.4/cy*23.0+pow(abs(cy/22.4),3.3))*fract(cx*evolve/pow(abs(cy),0.050)))));
+}
 
 void main()
 {
-	vec2 uv = TexCoord;
-	uv.y -= flickerValue;
+	vec2 diffuseUV = TexCoord;
+	diffuseUV.y -= flickerValue;
+	vec4 texColor = texture(texture_diffuse, diffuseUV);
 
-	vec4 texColor = texture(texture_diffuse, uv);
+  	vec3 staticColor = vec3(noise(TexCoord,iTime));
 
-	color = vec4(texColor.rgb, 1.0);
+	vec3 result;
+
+	if(staticApply)
+	{
+	 	result = texColor.rgb - staticColor.rgb;
+	}
+	else
+	{
+	 	result = texColor.rgb ;
+	}
+
+	color = vec4(result, 1.0);
 	
 }
