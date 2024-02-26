@@ -34,6 +34,7 @@ private:
 	glm::vec3 leftConsolePos = glm::vec3(-10.0f, 0.0f, 5.0f);
 	glm::vec3 rightConsolePos = glm::vec3(5.0f, 0.0f, 5.0f);
 	glm::vec4 alphaBlendColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.2f);
+	glm::vec4 screenColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 };
 
