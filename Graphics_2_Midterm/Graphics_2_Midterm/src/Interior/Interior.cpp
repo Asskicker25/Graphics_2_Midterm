@@ -1,12 +1,39 @@
 #include "Interior.h"
 #include <Graphics/Renderer.h>
 #include "../NewShaders/NewShaders.h"
+#include <Graphics/Light.h>
 
 Interior::Interior()
 {
+
 	name = "Interior";
 	InitializeEntity(this);
 
+	LoadLights();
+	LoadConsoles();
+	LoadWalls();
+	LoadFloors();
+	
+}
+
+void Interior::Start()
+{
+}
+
+void Interior::Update(float deltaTime)
+{
+}
+
+void Interior::Render()
+{
+}
+
+void Interior::OnDestroy()
+{
+}
+
+void Interior::LoadConsoles()
+{
 	centerConsole = new Model("Assets/Models/SM_Env_Consoles_01_xyz_n_rgba_uv.ply");
 	centerConsole->name = "Center Console";
 
@@ -53,7 +80,7 @@ Interior::Interior()
 	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->specularTexture = new Texture("Assets/Textures/WindowTextures/ScratchesGlass.png");
 	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
-	
+
 	rightCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_1->name = "Right Corner Screen 1";
 	rightCornerConsoleScreen_1->SetModelParent(cornerConsoleRight);
@@ -72,18 +99,56 @@ Interior::Interior()
 
 }
 
-void Interior::Start()
+void Interior::LoadWalls()
 {
+	Model* wall = new Model("Assets/Models/SM_Env_Wall_02_xyz_n_rgba_uv.ply");
+	wall->name = "Wall 1";
+	//wall->transform.SetPosition(glm::vec3(-10, 0, 5));
+	wall->SetModelParent(cornerConsoleLeft);
+	wall->transform.SetRotation(glm::vec3(0, 90, 0));
+
+
+	Model* wall2 = new Model();
+	wall2->name = "Wall 2";
+	wall2->CopyFromModel(*wall, true);
+	wall2->SetModelParent(cornerConsoleRight);
+	wall2->transform.SetPosition(glm::vec3(0, 0, 5));
+	wall2->transform.SetRotation(glm::vec3(0, -90, 0));
 }
 
-void Interior::Update(float deltaTime)
+void Interior::LoadFloors()
 {
+	Model* floor_1 = new Model("Assets/Models/SM_Env_Floor_01_xyz_n_rgba_uv.ply");
+	floor_1->name = "FLoor 1";
+	floor_1->transform.SetPosition(glm::vec3(-2.5, 0, 0));
+	floor_1->transform.SetScale(glm::vec3(0.8f, 1, 1));
+
+	Model* floor_2 = new Model();
+	floor_2->name = "FLoor 2 ";
+	floor_2->CopyFromModel(*floor_1, true);
+	floor_2->transform.SetPosition(glm::vec3(2,0,0));
+	floor_2->transform.SetScale(glm::vec3(0.9,1,1));
+
+
+	glm::vec3 pos = glm::vec3(-5, 0, 5);
+
+	for (int i = 0; i < 3; i++)
+	{
+		Model* floor1 = new Model();
+		floor1->CopyFromModel(*floor_1, true);
+		floor1->name = "Floor " + std::to_string(i + 3);
+		floor1->transform.SetPosition(glm::vec3(pos.x + (i * 5), pos.y, pos.z));
+		floor1->transform.SetScale(glm::vec3(1));
+	}
 }
 
-void Interior::Render()
+void Interior::LoadLights()
 {
-}
-
-void Interior::OnDestroy()
-{
+	Light* pointLight = new Light();
+	pointLight->transform.SetScale(glm::vec3(0.1f));
+	pointLight->transform.SetPosition(glm::vec3(-1.9f, 4, 5.9f));
+	pointLight->InitializeLight(Point);
+	pointLight->intensity = 0.9f;
+	pointLight->attenuation = glm::vec4(1, 0.1, 0.01, 0.02);
+		
 }

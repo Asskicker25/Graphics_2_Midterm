@@ -7,15 +7,17 @@ void Scene_One::Start()
 	GameCamera* mainCamera = new GameCamera();
 	mainCamera->name = "MainCamera";
 	mainCamera->InitializeCamera(PERSPECTIVE, GAME_RESOLUTION_WIDTH, GAME_RESOLUTION_HEIGHT, 0.1f, 100.0f, 45.0f);
-	mainCamera->transform.SetPosition(glm::vec3(0, 0, 10));
-	mainCamera->applyPostProcessing = true;
+	mainCamera->transform.SetPosition(glm::vec3(1.24f, 2.8f, 8.30f));
+	mainCamera->transform.SetRotation(glm::vec3(-9.5f, 30.0f, 0.0f));
+	/*mainCamera->applyPostProcessing = true;
 	mainCamera->postProcessing->bloom.isEnabled = true;
-	mainCamera->postProcessing->chromaticAberration.isEnabled = true;
+	mainCamera->postProcessing->chromaticAberration.isEnabled = true;*/
 
 	Light* dirLight = new Light();
 	dirLight->transform.SetScale(glm::vec3(0.1f));
 	dirLight->transform.SetPosition(glm::vec3(0, 0, 3));
 	dirLight->InitializeLight(Directional);
+
 
 	Interior* interior = new Interior();
 }

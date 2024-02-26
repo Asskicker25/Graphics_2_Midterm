@@ -17,6 +17,11 @@ public:
 	void OnDestroy() override;
 
 private:
+	void LoadConsoles();
+	void LoadWalls();
+	void LoadFloors();
+	void LoadLights();
+
 	Model* centerConsole = nullptr;
 	Model* cornerConsoleLeft = nullptr;
 	Model* cornerConsoleRight = nullptr;
