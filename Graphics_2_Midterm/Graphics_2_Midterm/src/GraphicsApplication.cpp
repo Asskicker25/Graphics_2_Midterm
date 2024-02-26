@@ -1,5 +1,6 @@
 #include "GraphicsApplication.h"
 #include "Scenes/Scene_One.h"
+#include "NewShaders/NewShaders.h"
 
 void GraphicsApplication::SetUp()
 {
@@ -24,6 +25,13 @@ void GraphicsApplication::SetUp()
 		});
 
 #pragma endregion
+
+#pragma region Shader
+
+	NewShaders::GetInstance().Initialize();
+	
+#pragma endregion
+
 
 
 	Scene_One* sceneOne = new Scene_One();

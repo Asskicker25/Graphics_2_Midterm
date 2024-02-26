@@ -1,4 +1,6 @@
 #include "Interior.h"
+#include <Graphics/Renderer.h>
+#include "../NewShaders/NewShaders.h"
 
 Interior::Interior()
 {
@@ -22,6 +24,11 @@ Interior::Interior()
 
 	centerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_01_screen_2_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_2->name = "Center Console Screen 2";
+	centerConsoleScreen_2->shader = NewShaders::GetInstance().windowShader;
+	centerConsoleScreen_2->meshes[0]->material->AsMaterial()->SetBaseColor(alphaBlendColor);
+	centerConsoleScreen_2->meshes[0]->material->AsMaterial()->alphaMask = new Texture("Assets/Textures/WindowTextures/BrokenGlass.png");
+	centerConsoleScreen_2->meshes[0]->material->AsMaterial()->specularTexture = new Texture("Assets/Textures/WindowTextures/Fingerprint_1.png");
+	centerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
 	centerConsoleScreen_3 = new Model("Assets/Models/SM_Env_Consoles_01_screen_3_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_3->name = "Center Console Screen 3";
@@ -33,16 +40,25 @@ Interior::Interior()
 	leftCornerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_2_xyz_n_rgba_uv.ply");
 	leftCornerConsoleScreen_2->name = "Left Corner Screen 2";
 	leftCornerConsoleScreen_2->SetModelParent(cornerConsoleLeft);
+	leftCornerConsoleScreen_2->shader = NewShaders::GetInstance().windowShader;
+	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->SetBaseColor(alphaBlendColor);
+	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->alphaMask = new Texture("Assets/Textures/WindowTextures/Fingerprint_2.png");
+	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->specularTexture = new Texture("Assets/Textures/WindowTextures/ScratchesGlass.png");
+	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
-
+	
 	rightCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_1->name = "Right Corner Screen 1";
 	rightCornerConsoleScreen_1->SetModelParent(cornerConsoleRight);
 
-
 	rightCornerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_2_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_2->name = "Right Corner Screen 2";
 	rightCornerConsoleScreen_2->SetModelParent(cornerConsoleRight);
+	rightCornerConsoleScreen_2->shader = NewShaders::GetInstance().windowShader;
+	rightCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->SetBaseColor(alphaBlendColor);
+	rightCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->alphaMask = new Texture("Assets/Textures/WindowTextures/Fingerprint_3.png");
+	rightCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->specularTexture = new Texture("Assets/Textures/WindowTextures/Scratches_2.png");
+	rightCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
 
 }

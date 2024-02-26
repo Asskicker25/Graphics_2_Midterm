@@ -141,6 +141,7 @@ vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir )
 	
 	//Tex Color
 	vec4 diffuseColor = texture(texture_diffuse, TexCoord);
+
 	
 	
 	vec4 texColor = diffuseColor * VertexColor * material.baseColor;
@@ -176,7 +177,8 @@ vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir )
 	if(alphaCutOut.y == 1)
 	{
 		result.w = texture(texture_opacity, TexCoord).r;
-		//result.w += 0.05;
+		result.w += texture(texture_specular, TexCoord).r;
+		result.w += 0.03;
 	}
 	else
 	{
@@ -198,7 +200,7 @@ vec4 CalcDirLight(Light light, vec4 texColor, vec4 ambientColor, vec3 normal, ve
 	diffuse *= texColor;
 	
 	//Specular
-	vec4 specularColor = texture(texture_specular, TexCoord);
+	vec4 specularColor = vec4(0.1,0.1,0.1,1);
 	vec3 reflectDir = reflect(-lightDir,normal);
 	
 	float specularValue = pow(max(dot(reflectDir, viewDir),0.0),material.shininess);
@@ -228,7 +230,7 @@ vec4 CalcPointLight(Light light, vec4 texColor, vec4 ambientColor, vec3 normal, 
 	diffuse *= texColor * attenuation;
 	
 	//Specular
-	vec4 specularColor = texture(texture_specular, TexCoord);
+	vec4 specularColor = vec4(0.1,0.1,0.1,1);
 	vec3 reflectDir = reflect(-lightDir,normal);
 	
 	float specularValue = pow(max(dot(reflectDir, viewDir),0.0),material.shininess);
@@ -269,7 +271,7 @@ vec4 CalcSpotLight(Light light, vec4 texColor, vec4 ambientColor, vec3 normal, v
 	
 	
 	//Specular
-	vec4 specularColor = texture(texture_specular, TexCoord);
+	vec4 specularColor = vec4(0.1,0.1,0.1,1);
 	vec3 reflectDir = reflect(-lightDir,normal);
 	
 	float specularValue = pow(max(dot(reflectDir, viewDir),0.0),material.shininess);

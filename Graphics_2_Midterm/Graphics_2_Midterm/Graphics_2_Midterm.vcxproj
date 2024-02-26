@@ -148,6 +148,7 @@
     <ClCompile Include="Dependencies\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Dependencies\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImSequencer.cpp" />
+    <ClCompile Include="src\NewShaders\NewShaders.cpp" />
     <ClCompile Include="src\Interior\Interior.cpp" />
     <ClCompile Include="src\Scenes\Scene_One.cpp" />
     <ClCompile Include="src\GraphicsApplication.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Dependencies\include\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\include\imgui\imstb_truetype.h" />
     <ClInclude Include="Dependencies\include\imgui\ImZoomSlider.h" />
+    <ClInclude Include="src\NewShaders\NewShaders.h" />
     <ClInclude Include="src\Interior\Interior.h" />
     <ClInclude Include="src\Scenes\Scene_One.h" />
     <ClInclude Include="src\AppSettings.h" />

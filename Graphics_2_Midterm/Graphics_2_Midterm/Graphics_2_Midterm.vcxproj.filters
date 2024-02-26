@@ -60,6 +60,9 @@
     <ClCompile Include="src\Interior\Interior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\NewShaders\NewShaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GraphicsApplication.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Interior\Interior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NewShaders\NewShaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
