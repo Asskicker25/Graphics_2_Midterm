@@ -18,6 +18,7 @@ void Scene_One::Start()
 	Light* dirLight = new Light();
 	dirLight->transform.SetScale(glm::vec3(0.1f));
 	dirLight->transform.SetPosition(glm::vec3(0, 0, 3));
+	dirLight->transform.SetRotation(glm::vec3(10, 40, 0));
 	dirLight->InitializeLight(Directional);
 	dirLight->intensity = 0.8;
 

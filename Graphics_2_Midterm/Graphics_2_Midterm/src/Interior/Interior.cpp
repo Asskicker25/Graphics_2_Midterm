@@ -89,6 +89,9 @@ void Interior::LoadConsoles()
 
 	rightCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_1->name = "Right Corner Screen 1";
+	/*rightCornerConsoleScreen_1->transform.SetPosition(glm::vec3(5, 0, 0));
+	rightCornerConsoleScreen_1->transform.SetScale(glm::vec3(-1, 1, -1));*/
+	
 	rightCornerConsoleScreen_1->SetModelParent(cornerConsoleRight);
 	//rightCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
