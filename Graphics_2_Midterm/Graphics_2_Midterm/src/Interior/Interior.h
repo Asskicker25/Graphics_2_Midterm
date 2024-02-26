@@ -21,5 +21,18 @@ private:
 	Model* cornerConsoleLeft = nullptr;
 	Model* cornerConsoleRight = nullptr;
 
+	Model* centerConsoleScreen_1 = nullptr;
+	Model* centerConsoleScreen_2 = nullptr;
+	Model* centerConsoleScreen_3 = nullptr;
+
+	Model* leftCornerConsoleScreen_1 = nullptr;
+	Model* leftCornerConsoleScreen_2 = nullptr;
+
+	Model* rightCornerConsoleScreen_1 = nullptr;
+	Model* rightCornerConsoleScreen_2 = nullptr;
+
+	glm::vec3 leftConsolePos = glm::vec3(-10, 0, 5);
+	glm::vec3 rightConsolePos = glm::vec3(5, 0, 5);
+
 };
 
