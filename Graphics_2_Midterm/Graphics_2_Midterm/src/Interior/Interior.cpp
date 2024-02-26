@@ -4,6 +4,7 @@
 #include <Graphics/Light.h>
 #include "../Screens/TwitchScreen.h"
 #include "../Screens/CameraScreen.h"
+#include "../Material/SciFiScreenMaterial.h"
 
 Interior::Interior(SecurityCameras* securtiyCameras)
 {
@@ -168,15 +169,23 @@ void Interior::ChangeTexture(Model* model, BaseTexture* texture)
 
 void Interior::SetupScreens()
 {
-	for (BaseScreen* model : mListOfScreens)
-	{
-		model->shader = NewShaders::GetInstance().screenShader;
-		model->blackTexture = blackTexture;
-		//model->transform.scale.y *= -1;
-	}
+	mListOfScreens[0]->meshes[0]->material = new SciFiScreenMaterial();
+	mListOfScreens[0]->shader = NewShaders::GetInstance().scifiShader;
+
+	mListOfScreens[1]->meshes[0]->material = new SciFiScreenMaterial();
+	mListOfScreens[1]->shader = NewShaders::GetInstance().scifiShader;
+
+	mListOfScreens[2]->shader = NewShaders::GetInstance().screenShader;
+	mListOfScreens[3]->shader = NewShaders::GetInstance().screenShader;
 
 	((CameraScreen*)mListOfScreens[2])->SetSecurityCamera(securityCameras);
 	((CameraScreen*)mListOfScreens[3])->SetSecurityCamera(securityCameras);
+
+	for (BaseScreen* model : mListOfScreens)
+	{
+		model->blackTexture = blackTexture;
+	}
+
 }
 
 void Interior::ToggleSecurityCamera()

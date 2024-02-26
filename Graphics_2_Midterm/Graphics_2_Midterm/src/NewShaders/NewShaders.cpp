@@ -1,4 +1,5 @@
 #include "NewShaders.h"
+#include "ScifiShader.h"
 
 NewShaders& NewShaders::GetInstance()
 {
@@ -15,4 +16,7 @@ void NewShaders::Initialize()
 	screenShader = new Shader("res/Shader/ScreenShader.shader");
 	screenShader->blendMode = Shader::ALPHA_OPAQUE;
 	screenShader->applyInverseModel = true;
+
+	scifiShader = new ScifiShader();
+	scifiShader->LoadShader ("res/Shader/SciFiScreen.shader", Shader::ALPHA_OPAQUE, false);
 }

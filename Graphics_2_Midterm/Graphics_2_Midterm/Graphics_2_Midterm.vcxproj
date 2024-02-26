@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\NewShaders\ScifiShader.cpp" />
+    <ClCompile Include="src\Material\SciFiScreenMaterial.cpp" />
     <ClCompile Include="src\Screens\CameraScreen.cpp" />
     <ClCompile Include="src\Screens\BaseScreen.cpp" />
     <ClCompile Include="src\SecurityCamera\SecurityCameras.cpp" />
@@ -160,6 +162,8 @@
     <ClCompile Include="src\Screens\TwitchScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\NewShaders\ScifiShader.h" />
+    <ClInclude Include="src\Material\SciFiScreenMaterial.h" />
     <ClInclude Include="src\Screens\CameraScreen.h" />
     <ClInclude Include="src\Screens\BaseScreen.h" />
     <ClInclude Include="src\SecurityCamera\SecurityCameras.h" />

@@ -10,5 +10,6 @@ public:
 
 	Shader* windowShader = nullptr;
 	Shader* screenShader = nullptr;
+	Shader* scifiShader = nullptr;
 };
 
