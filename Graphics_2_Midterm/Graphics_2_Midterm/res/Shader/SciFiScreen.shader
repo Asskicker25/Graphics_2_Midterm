@@ -47,9 +47,14 @@ in vec4 VertexColor;
 
 uniform sampler2D texture_diffuse;
 
+uniform float flickerValue;
+
 void main()
 {
-	vec4 texColor = texture(texture_diffuse, TexCoord);
+	vec2 uv = TexCoord;
+	uv.y -= flickerValue;
+
+	vec4 texColor = texture(texture_diffuse, uv);
 
 	color = vec4(texColor.rgb, 1.0);
 	
