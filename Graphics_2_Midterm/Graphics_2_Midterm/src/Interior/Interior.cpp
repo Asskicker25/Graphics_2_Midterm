@@ -2,6 +2,8 @@
 #include <Graphics/Renderer.h>
 #include "../NewShaders/NewShaders.h"
 #include <Graphics/Light.h>
+#include "../Screens/TwitchScreen.h"
+#include "../Screens/CameraScreen.h"
 
 Interior::Interior(SecurityCameras* securtiyCameras)
 {
@@ -54,9 +56,8 @@ void Interior::LoadConsoles()
 	cornerConsoleRight->transform.SetPosition(rightConsolePos);
 	cornerConsoleRight->transform.SetScale(glm::vec3(-1, 1, 1));
 
-	centerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_01_screen_1_xyz_n_rgba_uv.ply");
+	centerConsoleScreen_1 = new TwitchScreen("Assets/Models/SM_Env_Consoles_01_screen_1_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_1->name = "Center Console Screen 1";
-	//centerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 	centerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_01_screen_2_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_2->name = "Center Console Screen 2";
@@ -66,15 +67,13 @@ void Interior::LoadConsoles()
 	centerConsoleScreen_2->meshes[0]->material->AsMaterial()->specularTexture = new Texture("Assets/Textures/WindowTextures/Fingerprint_1.png");
 	centerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
-	centerConsoleScreen_3 = new Model("Assets/Models/SM_Env_Consoles_01_screen_3_xyz_n_rgba_uv.ply");
+	centerConsoleScreen_3 = new TwitchScreen("Assets/Models/SM_Env_Consoles_01_screen_3_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_3->name = "Center Console Screen 3";
-	//centerConsoleScreen_3->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 
-	leftCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
+	leftCornerConsoleScreen_1 = new CameraScreen("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	leftCornerConsoleScreen_1->name = "Left Corner Screen 1";
 	leftCornerConsoleScreen_1->SetModelParent(cornerConsoleLeft);
-	//leftCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 
 	leftCornerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_2_xyz_n_rgba_uv.ply");
@@ -87,14 +86,10 @@ void Interior::LoadConsoles()
 	leftCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
 
-	rightCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
+	rightCornerConsoleScreen_1 = new CameraScreen("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_1->name = "Right Corner Screen 1";
-	/*rightCornerConsoleScreen_1->transform.SetPosition(glm::vec3(5, 0, 0));
-	rightCornerConsoleScreen_1->transform.SetScale(glm::vec3(-1, 1, -1));*/
-	
-	rightCornerConsoleScreen_1->SetModelParent(cornerConsoleRight);
-	//rightCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
-
+	rightCornerConsoleScreen_1->transform.SetPosition(glm::vec3(5, 0, 0));
+	rightCornerConsoleScreen_1->transform.SetScale(glm::vec3(-1, 1, -1));
 
 	rightCornerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_2_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_2->name = "Right Corner Screen 2";
@@ -173,33 +168,34 @@ void Interior::ChangeTexture(Model* model, BaseTexture* texture)
 
 void Interior::SetupScreens()
 {
-	for (Model* model : mListOfScreens)
+	for (BaseScreen* model : mListOfScreens)
 	{
 		model->shader = NewShaders::GetInstance().screenShader;
+		model->blackTexture = blackTexture;
 		//model->transform.scale.y *= -1;
 	}
+
+	((CameraScreen*)mListOfScreens[2])->SetSecurityCamera(securityCameras);
+	((CameraScreen*)mListOfScreens[3])->SetSecurityCamera(securityCameras);
 }
 
 void Interior::ToggleSecurityCamera()
 {
 	isCameraOn = !isCameraOn;
 
-	/*if (isCameraOn)
+	for (BaseScreen* screen : mListOfScreens)
 	{
-
-	}
-	else
-	{
-		for (Model* model : mListOfScreens)
+		if (!isCameraOn)
 		{
-			ChangeTexture(model, blackTexture);
-		}
-	}*/
+			screen->SetScreenOff();
 
-	for (Model* model : mListOfScreens)
-	{
-		ChangeTexture(model, isCameraOn ? (BaseTexture*)securityCameras->GetRandomCamera()->renderTexture : blackTexture);
+		}
+		else
+		{
+			screen->SetScreenOn();
+		}
 	}
+
 }
 
 void Interior::OnKeyPressed(const int& key)

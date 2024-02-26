@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Screens\CameraScreen.cpp" />
+    <ClCompile Include="src\Screens\BaseScreen.cpp" />
     <ClCompile Include="src\SecurityCamera\SecurityCameras.cpp" />
     <ClCompile Include="src\Asteroid\Asteroid.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImCurveEdit.cpp" />
@@ -155,8 +157,11 @@
     <ClCompile Include="src\Scenes\Scene_One.cpp" />
     <ClCompile Include="src\GraphicsApplication.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Screens\TwitchScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Screens\CameraScreen.h" />
+    <ClInclude Include="src\Screens\BaseScreen.h" />
     <ClInclude Include="src\SecurityCamera\SecurityCameras.h" />
     <ClInclude Include="src\Asteroid\Asteroid.h" />
     <ClInclude Include="Dependencies\include\glad\glad.h" />
@@ -181,6 +186,7 @@
     <ClInclude Include="src\Scenes\Scene_One.h" />
     <ClInclude Include="src\AppSettings.h" />
     <ClInclude Include="src\GraphicsApplication.h" />
+    <ClInclude Include="src\Screens\TwitchScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

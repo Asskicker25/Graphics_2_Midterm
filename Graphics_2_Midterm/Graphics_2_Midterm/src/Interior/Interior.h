@@ -4,10 +4,12 @@
 #include <Graphics/Model.h>
 #include <Graphics/InputManager/InputManager.h>
 #include "../SecurityCamera/SecurityCameras.h"
+#include "../Screens/BaseScreen.h"
 
 class Interior : public Entity, public iInputListener
 {
 public:
+
 	Interior(SecurityCameras* securtiyCameras);
 
 
@@ -39,14 +41,14 @@ private:
 	Model* cornerConsoleLeft = nullptr;
 	Model* cornerConsoleRight = nullptr;
 
-	Model* centerConsoleScreen_1 = nullptr;
+	BaseScreen* centerConsoleScreen_1 = nullptr;
 	Model* centerConsoleScreen_2 = nullptr;
-	Model* centerConsoleScreen_3 = nullptr;
+	BaseScreen* centerConsoleScreen_3 = nullptr;
 
-	Model* leftCornerConsoleScreen_1 = nullptr;
+	BaseScreen* leftCornerConsoleScreen_1 = nullptr;
 	Model* leftCornerConsoleScreen_2 = nullptr;
 
-	Model* rightCornerConsoleScreen_1 = nullptr;
+	BaseScreen* rightCornerConsoleScreen_1 = nullptr;
 	Model* rightCornerConsoleScreen_2 = nullptr;
 
 	glm::vec3 leftConsolePos = glm::vec3(-10.0f, 0.0f, 5.0f);
@@ -55,7 +57,7 @@ private:
 	//glm::vec4 screenColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 
-	std::vector<Model*> mListOfScreens;
+	std::vector<BaseScreen*> mListOfScreens;
 
 
 	// Inherited via iInputListener
