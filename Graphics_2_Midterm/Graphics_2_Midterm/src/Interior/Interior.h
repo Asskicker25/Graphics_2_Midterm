@@ -2,12 +2,13 @@
 
 #include <Graphics/EntityManager/EntityManager.h>
 #include <Graphics/Model.h>
+#include <Graphics/InputManager/InputManager.h>
+#include "../SecurityCamera/SecurityCameras.h"
 
-
-class Interior : public Entity
+class Interior : public Entity, public iInputListener
 {
 public:
-	Interior();
+	Interior(SecurityCameras* securtiyCameras);
 
 
 	// Inherited via Entity
@@ -16,11 +17,23 @@ public:
 	void Render() override;
 	void OnDestroy() override;
 
+
 private:
 	void LoadConsoles();
 	void LoadWalls();
 	void LoadFloors();
 	void LoadLights();
+	
+	void ChangeTexture(Model* model, BaseTexture* texture);
+	
+	void SetupScreens();
+	void ToggleSecurityCamera();
+
+	bool isCameraOn = true;
+
+	SecurityCameras* securityCameras = nullptr;
+
+	Texture* blackTexture = nullptr;
 
 	Model* centerConsole = nullptr;
 	Model* cornerConsoleLeft = nullptr;
@@ -39,7 +52,16 @@ private:
 	glm::vec3 leftConsolePos = glm::vec3(-10.0f, 0.0f, 5.0f);
 	glm::vec3 rightConsolePos = glm::vec3(5.0f, 0.0f, 5.0f);
 	glm::vec4 alphaBlendColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.2f);
-	glm::vec4 screenColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	//glm::vec4 screenColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+
+	std::vector<Model*> mListOfScreens;
+
+
+	// Inherited via iInputListener
+	void OnKeyPressed(const int& key) override;
+	void OnKeyReleased(const int& key) override;
+	void OnKeyHeld(const int& key) override;
 
 };
 

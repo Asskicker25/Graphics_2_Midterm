@@ -9,5 +9,6 @@ public:
 	void Initialize();
 
 	Shader* windowShader = nullptr;
+	Shader* screenShader = nullptr;
 };
 

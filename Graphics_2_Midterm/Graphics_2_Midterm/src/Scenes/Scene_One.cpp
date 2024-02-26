@@ -2,6 +2,7 @@
 #include "../AppSettings.h"
 #include "../Interior/Interior.h"
 #include "../Asteroid/Asteroid.h"
+#include "../SecurityCamera/SecurityCameras.h"
 
 void Scene_One::Start()
 {
@@ -21,7 +22,8 @@ void Scene_One::Start()
 	dirLight->intensity = 0.8;
 
 
-	Interior* interior = new Interior();
+	SecurityCameras* securityCameras = new SecurityCameras();
+	Interior* interior = new Interior(securityCameras);
 	Asteroid* asteroid = new Asteroid();
 }
 

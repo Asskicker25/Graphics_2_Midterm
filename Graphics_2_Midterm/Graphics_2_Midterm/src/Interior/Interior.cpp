@@ -3,17 +3,24 @@
 #include "../NewShaders/NewShaders.h"
 #include <Graphics/Light.h>
 
-Interior::Interior()
+Interior::Interior(SecurityCameras* securtiyCameras)
 {
 
 	name = "Interior";
 	InitializeEntity(this);
+	InputManager::GetInstance().AddListener(this);
+
+	this->securityCameras = securtiyCameras;
+
+	blackTexture = new Texture("res/Textures/DefaultTextures/Specular_Default.jpg");
 
 	LoadLights();
 	LoadConsoles();
 	LoadWalls();
 	LoadFloors();
-	
+
+	SetupScreens();
+	ToggleSecurityCamera();
 }
 
 void Interior::Start()
@@ -32,6 +39,7 @@ void Interior::OnDestroy()
 {
 }
 
+
 void Interior::LoadConsoles()
 {
 	centerConsole = new Model("Assets/Models/SM_Env_Consoles_01_xyz_n_rgba_uv.ply");
@@ -46,11 +54,9 @@ void Interior::LoadConsoles()
 	cornerConsoleRight->transform.SetPosition(rightConsolePos);
 	cornerConsoleRight->transform.SetScale(glm::vec3(-1, 1, 1));
 
-
 	centerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_01_screen_1_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_1->name = "Center Console Screen 1";
-	centerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
-
+	//centerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 	centerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_01_screen_2_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_2->name = "Center Console Screen 2";
@@ -62,13 +68,13 @@ void Interior::LoadConsoles()
 
 	centerConsoleScreen_3 = new Model("Assets/Models/SM_Env_Consoles_01_screen_3_xyz_n_rgba_uv.ply");
 	centerConsoleScreen_3->name = "Center Console Screen 3";
-	centerConsoleScreen_3->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
+	//centerConsoleScreen_3->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 
 	leftCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	leftCornerConsoleScreen_1->name = "Left Corner Screen 1";
 	leftCornerConsoleScreen_1->SetModelParent(cornerConsoleLeft);
-	leftCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
+	//leftCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 
 	leftCornerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_2_xyz_n_rgba_uv.ply");
@@ -84,7 +90,7 @@ void Interior::LoadConsoles()
 	rightCornerConsoleScreen_1 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_1_xyz_n_rgba_uv.ply");
 	rightCornerConsoleScreen_1->name = "Right Corner Screen 1";
 	rightCornerConsoleScreen_1->SetModelParent(cornerConsoleRight);
-	rightCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
+	//rightCornerConsoleScreen_1->meshes[0]->material->AsMaterial()->SetBaseColor(screenColor);
 
 
 	rightCornerConsoleScreen_2 = new Model("Assets/Models/SM_Env_Consoles_Corner_01_screen_2_xyz_n_rgba_uv.ply");
@@ -96,6 +102,11 @@ void Interior::LoadConsoles()
 	rightCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->specularTexture = new Texture("Assets/Textures/WindowTextures/Scratches_2.png");
 	rightCornerConsoleScreen_2->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 
+
+	mListOfScreens.push_back(centerConsoleScreen_1);
+	mListOfScreens.push_back(centerConsoleScreen_3);
+	mListOfScreens.push_back(leftCornerConsoleScreen_1);
+	mListOfScreens.push_back(rightCornerConsoleScreen_1);
 
 }
 
@@ -126,8 +137,8 @@ void Interior::LoadFloors()
 	Model* floor_2 = new Model();
 	floor_2->name = "FLoor 2 ";
 	floor_2->CopyFromModel(*floor_1, true);
-	floor_2->transform.SetPosition(glm::vec3(2,0,0));
-	floor_2->transform.SetScale(glm::vec3(0.9,1,1));
+	floor_2->transform.SetPosition(glm::vec3(2, 0, 0));
+	floor_2->transform.SetScale(glm::vec3(0.9, 1, 1));
 
 
 	glm::vec3 pos = glm::vec3(-5, 0, 5);
@@ -144,11 +155,62 @@ void Interior::LoadFloors()
 
 void Interior::LoadLights()
 {
-	Light* pointLight = new Light();
+	/*Light* pointLight = new Light();
 	pointLight->transform.SetScale(glm::vec3(0.1f));
 	pointLight->transform.SetPosition(glm::vec3(-1.9f, 4, 5.9f));
 	pointLight->InitializeLight(Point);
 	pointLight->intensity = 0.9f;
-	pointLight->attenuation = glm::vec4(1, 0.1, 0.01, 0.02);
-		
+	pointLight->attenuation = glm::vec4(1, 0.1, 0.01, 0.02);*/
+}
+
+void Interior::ChangeTexture(Model* model, BaseTexture* texture)
+{
+	model->meshes[0]->material->AsMaterial()->diffuseTexture = texture;
+}
+
+void Interior::SetupScreens()
+{
+	for (Model* model : mListOfScreens)
+	{
+		model->shader = NewShaders::GetInstance().screenShader;
+		//model->transform.scale.y *= -1;
+	}
+}
+
+void Interior::ToggleSecurityCamera()
+{
+	isCameraOn = !isCameraOn;
+
+	/*if (isCameraOn)
+	{
+
+	}
+	else
+	{
+		for (Model* model : mListOfScreens)
+		{
+			ChangeTexture(model, blackTexture);
+		}
+	}*/
+
+	for (Model* model : mListOfScreens)
+	{
+		ChangeTexture(model, isCameraOn ? (BaseTexture*)securityCameras->GetRandomCamera()->renderTexture : blackTexture);
+	}
+}
+
+void Interior::OnKeyPressed(const int& key)
+{
+	if (key == GLFW_KEY_2)
+	{
+		ToggleSecurityCamera();
+	}
+}
+
+void Interior::OnKeyReleased(const int& key)
+{
+}
+
+void Interior::OnKeyHeld(const int& key)
+{
 }
