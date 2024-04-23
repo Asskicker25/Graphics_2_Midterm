@@ -460,6 +460,15 @@ void ApplicationWindow::MouseHeldCallback(GLFWwindow* window, int& button, int& 
 {
 	if (stopMouseCallback) return;
 
+	if (action == GLFW_PRESS)
+	{
+		InputManager::GetInstance().OnMouseButtonPressed(button);
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		InputManager::GetInstance().OnMouseButtonReleased(button);
+	}
+
 	if (button == GLFW_MOUSE_BUTTON_2 && action == GLFW_PRESS && EditorLayout::GetInstance().IsViewportHovered())
 	{
 		mouseHeld = true;
@@ -481,8 +490,6 @@ void ApplicationWindow::InputCallback(GLFWwindow* window, int& key, int& scancod
 	{
 		InputManager::GetInstance().OnKeyReleased(key);
 	}
-	else if (action == GLFW_REPEAT)
-	{
-	}
+
 }
 

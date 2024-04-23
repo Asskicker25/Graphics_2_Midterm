@@ -6,9 +6,16 @@ using namespace Scene;
 
 class Scene_One : public BaseScene
 {
+public:
+	Scene_One(ApplicationWindow* window);
+
 	// Inherited via BaseScene
 	void Start() override;
 	void Update() override;
 	void Render() override;
+
+private:
+
+	ApplicationWindow* mWindow = nullptr;
 };
 

@@ -3,6 +3,13 @@
 #include "../Interior/Interior.h"
 #include "../Asteroid/Asteroid.h"
 #include "../SecurityCamera/SecurityCameras.h"
+#include "../Camera/CameraController.h"
+#include <Graphics/Panels/EditorLayout.h>
+
+Scene_One::Scene_One(ApplicationWindow* window)
+{
+	mWindow = window;
+}
 
 void Scene_One::Start()
 {
@@ -26,6 +33,8 @@ void Scene_One::Start()
 	SecurityCameras* securityCameras = new SecurityCameras();
 	Interior* interior = new Interior(securityCameras);
 	Asteroid* asteroid = new Asteroid();
+	CameraController* cameraController = new CameraController(mainCamera);
+
 }
 
 void Scene_One::Update()

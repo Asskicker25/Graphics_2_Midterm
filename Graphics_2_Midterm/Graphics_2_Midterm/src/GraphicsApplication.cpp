@@ -34,10 +34,11 @@ void GraphicsApplication::SetUp()
 
 
 
-	Scene_One* sceneOne = new Scene_One();
+	Scene_One* sceneOne = new Scene_One(this);
 
 	SceneManager::GetInstance().AddScene("SceneOne", sceneOne);
 	SceneManager::GetInstance().ChangeScene("SceneOne");
+
 
 }
 

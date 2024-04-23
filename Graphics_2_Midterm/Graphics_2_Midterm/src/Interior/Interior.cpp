@@ -154,12 +154,12 @@ void Interior::LoadFloors()
 
 void Interior::LoadLights()
 {
-	/*Light* pointLight = new Light();
+	Light* pointLight = new Light();
 	pointLight->transform.SetScale(glm::vec3(0.1f));
 	pointLight->transform.SetPosition(glm::vec3(-1.9f, 4, 5.9f));
 	pointLight->InitializeLight(Point);
 	pointLight->intensity = 0.9f;
-	pointLight->attenuation = glm::vec4(1, 0.1, 0.01, 0.02);*/
+	pointLight->attenuation = glm::vec4(1, 0.5, 0.01, 0.02);
 }
 
 void Interior::ChangeTexture(Model* model, BaseTexture* texture)
